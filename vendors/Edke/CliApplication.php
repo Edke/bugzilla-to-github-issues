@@ -79,7 +79,7 @@ class CliApplication
     public function run($arguments)
     {
         $_this = $this;
-        $this->arguments = $arguments;
+        $this->arguments[] = $arguments[0];
 
         unset($arguments[0]);
 
@@ -106,28 +106,12 @@ class CliApplication
             }
         }
 
-        # process commands
-        $command = null;
-        foreach($arguments as $argument) {
-            if ( !preg_match('#^-#', $argument)) {
-               $command = $argument;
-                break;
+        # process arguments
+        foreach ($arguments as $argument) {
+            if (!preg_match('#^-#', $argument)) {
+                $this->arguments[] = $argument;
             }
         }
-
-        if ($command === null) {
-            $this->help();
-        }
-
-        if (array_key_exists($command, $this->commands)) {
-            call_user_func($this->commands[$command]->callback, $_this);
-        }
-        else {
-            echo "Invalid command $command\n\n";
-            $this->help();
-        }
-
-        //Debugger::dump($options);
     }
 
     /**

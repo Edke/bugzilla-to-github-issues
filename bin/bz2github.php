@@ -17,6 +17,39 @@ use Nette\Diagnostics\Debugger;
 class bzMigrator extends CliApplication
 {
 
+    public function run($arguments)
+    {
+        parent::run($arguments);
+        $_this = $this;
+
+        //Debugger::dump($this->arguments);
+
+        if (count($this->arguments) != 3 ) {
+            $this->help();
+        }
+
+        $command = $this->getCommand();
+        $config = $this->getConfig();
+
+        if (array_key_exists($command, $this->commands)) {
+            call_user_func($this->commands[$command]->callback, $_this);
+        } else {
+            echo "Invalid command $command\n\n";
+            $this->help();
+        }
+    }
+
+
+    public function getCommand()
+    {
+        return $this->arguments[1];
+    }
+
+    public function getConfig()
+    {
+        return $this->arguments[2];
+    }
+
 }
 
 $migrator = new bzMigrator();
@@ -28,8 +61,6 @@ $migrator->setDescription('bz2github migrates Bugzilla bugs to Github issues.');
 
 $migrator->addCommand('init-config', function($migrator)
     {
-
-
         $template = "
 bugzilla:
     url:
