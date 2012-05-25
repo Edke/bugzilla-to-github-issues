@@ -12,15 +12,14 @@ use Nette\Diagnostics\Debugger;
 
 class CliApplication
 {
-    private $options = array();
-    private $arguments;
-    private $commands = array();
-
-    private $verbose = false;
-    private $version;
-    private $copyright;
-    private $legal;
-    private $description;
+    protected $options = array();
+    protected $arguments = array();
+    protected $commands = array();
+    protected $verbose = false;
+    protected $version;
+    protected $copyright;
+    protected $legal;
+    protected $description;
 
     public function __construct()
     {
