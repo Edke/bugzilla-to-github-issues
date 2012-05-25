@@ -74,16 +74,19 @@ github:
     login:
     password:
     repository:
+";
+        $file = getcwd().'/'.$migrator->getConfig().'.neon';
+        if (file_exists($file)) {
+            echo "File $file already exists, terminating.\n";
+            exit;
+
+        }
+
+        file_put_contents($file, $template);
 
 
 
-        "
-
-
-
-
-
-        echo 'initing';
+        echo "File $file saved.\n";
         exit;
     }, 'creates config file template in current directory'
 );
