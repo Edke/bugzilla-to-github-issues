@@ -25,10 +25,9 @@ class CliApplication
     {
         # verbose
         $this->addOption('v', 'verbose', function($self)
-            {
-                $self->setVerbose(true);
-            }, 'explain what is being done'
-        );
+        {
+            $self->setVerbose(true);
+        }, 'explain what is being done');
 
         # help
         $this->addOption('h', 'help', function($self)
@@ -69,8 +68,8 @@ class CliApplication
     {
         $this->commands[$command] = (object)array(
             'command'       => $command,
-            'callback'    => $callback,
-            'description' => $description
+            'callback'      => $callback,
+            'description'   => $description
         );
     }
 
@@ -83,7 +82,6 @@ class CliApplication
         $this->arguments = $arguments;
 
         unset($arguments[0]);
-        Debugger::dump($arguments);
 
         # building and getting options
         $short = '';
@@ -166,10 +164,10 @@ Usage:
         $lines = array();
         $max = 0;
         foreach ($this->commands as $key => $command) {
-                $lines[$key] = $key;
+            $lines[$key] = $key;
             $max = max($max, strlen($lines[$key]));
         }
-        $help .="Commands:\n";
+        $help .= "Commands:\n";
         foreach ($lines as $key => $line) {
             $help .= sprintf("  %s%s   %s\n", $line, str_repeat(' ', $max - strlen($line)), $this->commands[$key]->description);
         }
@@ -187,7 +185,7 @@ Usage:
             }
             $max = max($max, strlen($lines[$key]));
         }
-        $help .="\nOptions:\n";
+        $help .= "\nOptions:\n";
         foreach ($lines as $key => $line) {
             $help .= sprintf("  %s%s   %s\n", $line, str_repeat(' ', $max - strlen($line)), $this->options[$key]->description);
         }
@@ -201,7 +199,7 @@ Usage:
      */
     public function version()
     {
-        echo $this->getScriptName()." $this->version
+        echo $this->getScriptName() . " $this->version
 
 $this->copyright
 
